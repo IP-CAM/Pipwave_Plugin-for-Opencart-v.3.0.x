@@ -5,8 +5,9 @@ pipwave Plugin for OpenCart Shopping Cart developed by pipwave development team.
 Supported version
 -----------------
 New Update
-- Opencart Seamless Plugin
-- OpenCart version 3.x
+- OpenCart version 3.x and above
+- For OpenCart version below 3.x, follow updating OpenCart <a href="http://docs.opencart.com/upgrading/" target="_update">guide </a>
+
 
 Notes
 -----
