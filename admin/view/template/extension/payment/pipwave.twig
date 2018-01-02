@@ -1,0 +1,249 @@
+{{ header }}{{ column_left }}
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-right">
+                <button type="submit" form="form-payment" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+            <h1>{{ heading_title }}</h1>
+            <ul class="breadcrumb">
+                {% for breadcrumb in breadcrumbs %}
+                <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        {% if error_warning %}
+        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+        </div>
+        {% endif %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+            </div>
+            <div class="panel-body">
+                <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-api">
+                            {{ entry_api_key }}
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" name="payment_pipwave_api_key" value="{{ payment_pipwave_api_key }}" id="input-api" class="form-control" />
+                            <div class="hint-block" style="color: #1E91CF; margin: 4px 0;">{{ tooltip_api_key }}</div>
+                            {% if error_api_key %}
+                            <div class="text-danger">{{ error_api_key }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-secret">
+                            {{ entry_api_secret }}
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="password" name="payment_pipwave_api_secret" value="{{ payment_pipwave_api_secret }}" id="input-secret" class="form-control" />
+                            <div class="hint-block" style="color: #1E91CF; margin: 4px 0;">{{ tooltip_api_secret }}</div>
+                            {% if error_api_secret %}
+                            <div class="text-danger">{{ error_api_secret }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-order-status">{{ entry_order_status }}</label>
+                        <div class="col-sm-10">
+                            <select name="payment_pipwave_order_status_id" id="input-order-status" class="form-control">
+                                {% for order_status in order_statuses %}
+                                {% if order_status.order_status_id  ==  payment_pipwave_order_status_id %}
+                                <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                                {% else %}
+                                <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{ entry_complete_status }}</label>
+                        <div class="col-sm-10">
+                            <select name="payment_pipwave_complete_status_id" class="form-control">
+                                {% for order_status in order_statuses %}
+                                {% if order_status.order_status_id  ==  payment_pipwave_complete_status_id %}
+                                <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                                {% else %}
+                                <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                                {% endif %} 
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{ entry_refund_status }}</label>
+                        <div class="col-sm-10">
+                            <select name="payment_pipwave_refund_status_id" class="form-control">
+                                {% for order_status in order_statuses %}
+                                {% if order_status.order_status_id  ==  payment_pipwave_refund_status_id %}
+                                <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                                {% else %}
+                                <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{ entry_partial_refund_status }}</label>
+                        <div class="col-sm-10">
+                            <select name="payment_pipwave_partial_refund_status_id" class="form-control">
+                                {% for order_status in order_statuses %}
+                                {% if order_status.order_status_id  ==  payment_pipwave_partial_refund_status_id %}
+                                <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                                {% else %}
+                                <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{ entry_canceled_status }}</label>
+                        <div class="col-sm-10">
+                            <select name="payment_pipwave_canceled_status_id" class="form-control">
+                                {% for order_status in order_statuses %}
+                                {% if order_status.order_status_id  ==  payment_pipwave_canceled_status_id %}
+                                <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                                {% else %}
+                                <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{ entry_failed_status }}</label>
+                        <div class="col-sm-10">
+                            <select name="payment_pipwave_failed_status_id" class="form-control">
+                                {% for order_status in order_statuses %}
+                                {% if order_status.order_status_id  ==  payment_pipwave_failed_status_id %}
+                                <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                                {% else %}
+                                <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
+                        <div class="col-sm-10">
+                            <select name="payment_pipwave_status" id="input-status" class="form-control">
+                                {% if payment_pipwave_status %}
+                                <option value="1" selected="selected">{{ text_enabled }}</option>
+                                <option value="0">{{ text_disabled }}</option>
+                                {% else %}
+                                <option value="1">{{ text_enabled }}</option>
+                                <option value="0" selected="selected">{{ text_disabled }}</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
+                        <div class="col-sm-10">
+                            <select name="payment_pipwave_geo_zone_id" id="input-geo-zone" class="form-control">
+                                <option value="0">{{ text_all_zones }}</option>
+                                {% for geo_zone in geo_zones %}
+                                {% if geo_zone.geo_zone_id  ==  payment_pipwave_geo_zone_id %}
+                                <option value="{{ geo_zone.geo_zone_id }}" selected="selected">{{ geo_zone.name }}</option>
+                                {% else %}
+                                <option value="{{ geo_zone.geo_zone_id }}">{{ geo_zone.name }}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-status">{{ entry_test_mode }}</label>
+                        <div class="col-sm-10">
+                            <label class="radio-inline">
+                                {% if payment_pipwave_test_mode %}
+                                <input type="radio" name="payment_pipwave_test_mode" value="1" checked="checked" />
+                                {{ text_yes }}
+                                {% else %}
+                                <input type="radio" name="payment_pipwave_test_mode" value="1" />
+                                {{ text_yes }}
+                                {% endif %}
+                            </label>
+                            <label class="radio-inline">
+                                {% if not payment_pipwave_test_mode %}
+                                <input type="radio" name="payment_pipwave_test_mode" value="0" checked="checked" />
+                                {{ text_no }}
+                                {% else %}
+                                <input type="radio" name="payment_pipwave_test_mode" value="0" />
+                                {{ text_no }}
+                                {% endif %}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            {{ entry_processing_fee_group }}
+                        </label>
+                        <div class="col-sm-10">
+                            {% for customer_group in customer_groups %}
+                            <div class='row'>
+                                <div class="col-sm-6">
+                                    <div class="checkbox">
+                                        <label>
+                                            {% if payment_pipwave_processing_fee_groups.customer_group.customer_group_id %}
+                                            <input type="checkbox" name="payment_pipwave_processing_fee_groups[{{ customer_group.customer_group_id }}]" value="{{ customer_group.name }}" checked />
+                                            {% else %}
+                                            <input type="checkbox" name="payment_pipwave_processing_fee_groups[{{ customer_group.customer_group_id }}]" value="{{ customer_group.name }}" />
+                                            {% endif %}
+                                            {{ customer_group.name }}
+                                        </label>
+                                    </div>
+                                </div>                            
+                            </div>
+                            <div class='form-group row' style='padding-top: 0; padding-bottom: 0;'>
+                                <div class="col-sm-6">
+                                    <label class='control-label'>{{ entry_processing_fee_ref }}</label>
+                                    <input type="text" name="payment_pipwave_processing_fee_ref[{{ customer_group.customer_group_id }}]" value="{{ payment_pipwave_processing_fee_ref.customer_group.customer_group_id }}" class="form-control" />                            
+                                    {% if error_processing_fee_ref.customer_group.customer_group_id %}
+                                    <div class="text-danger">{{ error_processing_fee_ref.customer_group.customer_group_id }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <div class="hint-block" style="color: #1E91CF; margin: 4px 0;">{{ tooltip_processing_fee_group }}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-sort-order">{{ entry_sort_order }}</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="payment_pipwave_sort_order" value="{{ payment_pipwave_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control" />
+                        </div>
+                    </div>
+                </form>
+                <div style="margin-top: 30px;">
+                    <b>{{ more_info.step_title }}</b>
+                    <ol>
+                        <li style="padding:5px">
+                            {{ more_info.step_sign_in ~ more_info.step_sign_up }}
+                        </li>
+                        <li style="padding: 5px">
+                            {{ more_info.step_setup }}
+                        </li>
+                        <li style="padding: 5px">
+                            {{ more_info.step_configure }}
+                        </li>
+                        <li style="padding: 5px">
+                            {{ more_info.step_more_info }}
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ footer }}
