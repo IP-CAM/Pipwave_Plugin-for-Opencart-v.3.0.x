@@ -23,7 +23,7 @@ How to integrate OpenCart with pipwave
 -----------------------------------------
 1. Download pipwave module from https://github.com/dpodium/pipwave_OpenCart3.0_Plugin folder or clone this repository.
 
-2. Upload all the files to your OpenCart root directory.
+2. Upload all the files to your OpenCart root directory.<br/>
 `<OpenCart_DIR>/admin/*`  
 `<OpenCart_DIR>/catalog/*`
 
