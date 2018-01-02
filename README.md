@@ -66,7 +66,7 @@ If you would like to impose processing fee to your customers by group, kindly co
 
 #### 5. pipwave OpenCart Shopping Cart Plugin is awesome! Can I contribute?
 
-Yes you can! Join in on our [GitHub repository](https://github.com/dpodium/pipwave_OpenCart2.0_Plugin/) :)
+Yes you can! Join in on our [GitHub repository](https://github.com/dpodium/pipwave_OpenCart3.0_Plugin/) :)
 
 Issues
 ------
